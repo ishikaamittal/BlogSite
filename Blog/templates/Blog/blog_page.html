@@ -1,0 +1,44 @@
+{% include 'Blog/base.html' %}
+{% include 'Blog/sidebar.html' %}
+{% block body_block %}
+
+
+<!-- Blog Entries Column -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 mt-3 left">
+            {% for post in posts %}
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2 class="card-title">{{ post.title }}</h2>
+                    <p class="card-text text-muted h6">{{ post.date_posted }} </p>
+                    <p class="card-text">{{ post.content }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- <div class="container px-5 py-15 mx-auto">
+            <div class="py-8 flex flex-wrap md:flex-nowrap">
+            <div class="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
+                <span class="font-semibold title-font text-gray-700"> {{ post.category }}</span>
+                <span class="mt-1 text-gray-500 text-sm">{{ post.date_posted|date:"F d, Y" }}</span>
+            </div>
+            <div class="md:flex-grow">
+                <h2 class="text-2xl font-medium text-gray-900 title-font mb-2">{{ post.title }}</h2>
+                <p class="leading-relaxed">{{ post.content }}</p>
+                <a class="text-blue-500 inline-flex items-center mt-4">Learn More
+                <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14"></path>
+                    <path d="M12 5l7 7-7 7"></path>
+                    
+                </svg>
+                </a>
+            </div>
+            </div>
+        </div> -->
+
+{% endblock %}

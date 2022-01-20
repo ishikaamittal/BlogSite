@@ -1,0 +1,29 @@
+{% extends 'Blog/base.html' %}
+{% include 'Blog/sidebar.html' %}
+
+{% block body_block %}
+<div class="container h-100">
+    <div class="row h-100">
+        <div class=" col-md-8 col-lg-6 mx-auto d-table h-50">
+            <div class="d-table-cell align-middle">
+                <div class="d-table-cell align-middle">
+                    <div class="text-center mt-4">
+                        <legend class="border-bottom mb-4">Join Today</legend>
+                <table>
+                    <td>{{ form.as_table }}</td>
+                    <td>
+                        <div class="text-center mt-3">
+                            <button type="submit" class="btn btn-lg btn-primary">Sign up
+                            </button>
+                        </div>
+                    </td>
+                </table>
+                    </div>
+            </div>
+            {% csrf_token %}
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
