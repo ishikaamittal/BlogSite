@@ -53,10 +53,18 @@
         <span class="ml-8 text-xl fs-2 fw-bold">BlogBox</span>
       </a>
       <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center" >
+       
         <a style="color: white;" class="mr-5 hover:text-gray-900" href="{% url 'blog-home' %}">Home</a>
         <a style="color: white;" class="mr-5 hover:text-gray-900">Write Blog</a>
         <a style="color: white;" class="mr-5 hover:text-gray-900">About</a>
-        <a style="color: white;" class="mr-5 hover:text-gray-900">Register</a>
+        <!-- Login navbar -->
+        {% if user.is_authenticated %}
+        <a style="color: white;" class="mr-5 hover:text-gray-900" href="{% url 'profile' %}">Profile</a>
+        <a style="color: white;" class="mr-5 hover:text-gray-900" href="{% url 'logout' %}">Logout</a>
+        {% else %}
+        <a style="color: white;" class="mr-5 hover:text-gray-900" href="{% url 'register' %}">Register</a>
+        <a style="color: white;" class="mr-5 hover:text-gray-900" href="{% url 'login' %}">Login</a>
+        {% endif %}
       </nav>
 
     </div>
@@ -64,6 +72,13 @@
 
 
   <div>
+    {% if messages %}
+      {% for message in messages %}
+        <div class = "alert alert-{{ message.tags}}">
+          {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
     {% block body_block %}{% endblock %}
   </div>
 
