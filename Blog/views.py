@@ -1,29 +1,40 @@
-from django.http import HttpResponseRedirect
-from turtle import title
-from django.shortcuts import get_object_or_404, render
-from django.utils.text import slugify
+from django.shortcuts import render
 from .models import PostBlog
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import PostForm
+from django.core.paginator import Paginator,EmptyPage
 
 # Create your views here.
 def index(request):
     return render(request, "home.html")
 
-def blog_page(request):
-    blogContent = {
-        'posts' : PostBlog.objects.all
+def blog_page(request, page=1):
+
+        # pagination
+
+    # page = request.GET.get('page', 1)
+    blog_list = PostBlog.objects.all()
+    paginator = Paginator(blog_list, 4)
+
+    try:
+        blog_list = paginator.page(page)
+    except EmptyPage:
+        # if we exceed the page limit we return the last page 
+        blog_list = paginator.page(paginator.num_pages)
+            
+
+    content = {
+        'posts' : blog_list,
         }
-    return render(request, "blog_page.html", blogContent)
+    return render(request, "blog_page.html",content)
 
 @login_required
 def addPost(request):
     form = PostForm(request.POST)
     if form.is_valid():
         post = form.save(commit=False)
-            # post.slug =slugify(post.title)
         post.author = request.user
         post.save()
         messages.success(request,"New blog created!")
