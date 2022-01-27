@@ -1,6 +1,9 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from django.http import request
+
+from users.models import Profile
 
 
 class UserRegisterForm(UserCreationForm):
@@ -25,3 +28,15 @@ class UserRegisterForm(UserCreationForm):
         model = User
         fields = ['first_name', 'last_name','gender','username', 'email', 'password1', 'password2']
         exclude = ('password2.help_text',)
+
+
+class updateUserForm(forms.ModelForm):
+    email = forms.EmailField()
+    class Meta:
+        model = User
+        fields = ['email']
+
+class updateProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ["img"]
