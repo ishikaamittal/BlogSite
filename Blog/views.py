@@ -1,4 +1,4 @@
-from re import I
+from django.http import HttpResponseRedirect
 from turtle import title
 from django.shortcuts import get_object_or_404, render
 from django.utils.text import slugify
@@ -18,21 +18,21 @@ def blog_page(request):
         }
     return render(request, "blog_page.html", blogContent)
 
-@login_required(login_url= "login/")
+@login_required
 def addPost(request):
     form = PostForm(request.POST)
     if form.is_valid():
-        post = form.save()
+        post = form.save(commit=False)
             # post.slug =slugify(post.title)
-        # post.author = request.User
+        post.author = request.user
         post.save()
-        messages.success(request,"Added your blog")
+        messages.success(request,"New blog created!")
         return redirect("blog-page")
     else:
         form = PostForm(request.POST)
     return render(request,"addPost.html", {"form":form})
 
-@login_required(login_url= "login/")
+@login_required
 def updatePost(request, id):
     method = request.method
     if method == 'GET':
@@ -44,12 +44,13 @@ def updatePost(request, id):
         form = PostForm(request.POST, instance=post)
         if form.is_valid():
             form.save(commit=True)
+            messages.success(request,"Blog updated!")
             return redirect("blog-page")
 
-@login_required(login_url= "login/")
+@login_required
 def deletePost(request, id):
     post = PostBlog.objects.get(id=id)
     post.delete()
-    messages.success(request,"Blog deleted")
+    messages.success(request,"Blog deleted!")
     return redirect("blog-page")
   

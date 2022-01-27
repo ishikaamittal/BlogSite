@@ -32,8 +32,6 @@ urlpatterns = [
     path('addpost/', blog_views.addPost, name="add-post"),
     path('update/<id>', blog_views.updatePost, name="update-post"),
     path('delete/<id>', blog_views.deletePost, name="delete-post"),
-
-
 #    syntax has asterik * for static files
     *static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 ]
