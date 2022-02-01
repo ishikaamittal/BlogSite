@@ -12,6 +12,7 @@ class UserRegisterForm(UserCreationForm):
     # enrollment = forms.CharField(max_length=10, un)
     # DOB = forms.DateField(widget=forms.DateInput(attrs={'placeholder': 'Date of Birth', 'class': 'form-control'}))
     GENDER_CHOICES = (
+        ('NA', 'Not defined'),
         ('M', 'Male'),
         ('F', 'Female'),
         ('O', 'Other'),
@@ -27,7 +28,6 @@ class UserRegisterForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['first_name', 'last_name','gender','username', 'email', 'password1', 'password2']
-        exclude = ('password2.help_text',)
 
 
 class updateUserForm(forms.ModelForm):

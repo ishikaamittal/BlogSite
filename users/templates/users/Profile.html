@@ -1,33 +1,31 @@
-{% extends "Blog/base.html" %}
-{% include 'Blog/sidebar.html' %}
-{% block body_block %}
+{% extends "Blog/base_new.html" %} {% block body_block %}
 
 <style>
-  .account-img {
-    height: 125px;
-    width: 125px;
-    margin-right: 20px;
-    margin-bottom: 16px;
-  }
-
-  .account-heading {
-    font-size: 2.5rem;
-  }
+    .account-img {
+        height: 125px;
+        width: 125px;
+        margin-right: 20px;
+        margin-bottom: 16px;
+    }
+    
+    .account-heading {
+        font-size: 2.5rem;
+    }
 </style>
 
 
 <div class="container">
     <div class=" col-md-9 mt-4 ">
-      <div class="card mb-4">
-        <div class="card-body">
-          <p><img class="rounded-circle account-img" src="{{ user.profile.img.url }}">
-            <h2 style="display: grid;">{{ user.username }}</h2>              
-            {{ user.email }}</p>
-          </div>
-          </div>
+        <div class="card mb-4">
+            <div class="card-body">
+                <p><img class="rounded-circle account-img" src="{{ user.profile.img.url }}">
+                    <h2 style="display: grid;">{{ user.username }}</h2>
+                    {{ user.email }}</p>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
+</div>
+</div>
+</div>
 
-  {% endblock %}
+{% endblock %}
