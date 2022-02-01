@@ -1,19 +1,27 @@
-{% extends "base.html" %}
+{% extends 'Blog/base.html' %} {% load static %} {% block body_block %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/add.css' %}">
+<title>Article Template</title>
+</head>
 
-{% block body_block %}
+<body>
+    <div class="container mt-5">
+        <div class="row blog mb-5 bg-white card rounded-0 shadow-sm pb-2 pt-3">
+            <div class="card-body">
+                <h3>Article</h3>
+                <form method="post" id='user.id' enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label>Title</label> {{ form.title }}
+                    </div>
+                    <div class="form-group">
+                        <label>Content</label> {{ form.content }}
+                    </div>
+                    <div class="form-group">
+                        <label>Category</label> {{ form.category }}
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button> {% csrf_token %}
 
-<div class="row">
-    <div class="col-md-6 offset-md-3">
-        <h3>update</h3>
-        <hr>
-        <form method = "post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{form.as_p}}
-            <br>
-            <button type = "submit" class = "btn btn-danger">post</button>
-        </form>
+                </form>
+            </div>
+        </div>
     </div>
-  </div>
-
-
-{% endblock body_block %}
+    {% endblock %}

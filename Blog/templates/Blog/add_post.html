@@ -1,8 +1,6 @@
-{% extends 'Blog/base_new.html' %}
-{% load static %}
-{% block body_block %}
+{% extends 'Blog/base.html' %} {% load static %} {% block body_block %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/add.css' %}">
-<title>Login Template</title>
+<title>Article Template</title>
 </head>
 
 <body>
@@ -10,21 +8,17 @@
         <div class="row blog mb-5 bg-white card rounded-0 shadow-sm pb-2 pt-3">
             <div class="card-body">
                 <h3>Article</h3>
-                <form method = "post" id='user.id' enctype="multipart/form-data">
+                <form method="post" id='user.id' enctype="multipart/form-data">
                     <div class="form-group">
-                        <label>Title</label>
-                        {{ form.title }}
+                        <label>Title</label> {{ form.title }}
                     </div>
                     <div class="form-group">
-                        <label>Content</label>
-                        {{ form.content }}
+                        <label>Content</label> {{ form.content }}
                     </div>
                     <div class="form-group">
-                        <label>Category</label>
-                        {{ form.category }}
+                        <label>Category</label> {{ form.category }}
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary">Submit</button> {% csrf_token %}
 
                 </form>
             </div>

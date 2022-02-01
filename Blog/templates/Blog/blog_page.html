@@ -1,46 +1,62 @@
-{% include 'Blog/base.html' %}
-{% include 'Blog/sidebar.html' %}
+{% extends 'Blog/base.html' %} {% load static %}
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/blog-page.css' %}">
+    <title>Horizontal Blog</title>
+</head>
+
 {% block body_block %}
 
 
-<!-- Blog Entries Column -->
-
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 mt-3 left">
-            {% for post in posts %}
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h2 class="card-title">{{ post.title }}</h2>
-                    <p class="card-text text-muted h6">{{ post.date_posted }} </p>
-                    <p class="card-text">{{ post.content }}</p>
-                    <p class="card-text text-muted h6"></p>Written by: {{post.author}}</p>
-                </div>
+<body>
+    <div class="container mt-5">
+        <h2 class="font-w-700">Blogs</h2>
+        <hr>
+        <!-- blog start -->
+        {% for post in posts %}
+        <div class="row blog mb-5 bg-white shadow-sm pb-2 pt-3">
+            <!-- <div class="col-md-4">
+                <img src="img/mountain.jpg" class="blog-img rounded shadow-lg" alt="bootstrap horizontal-blog">
+            </div> -->
+            <div class="col-md-8">
+                <h6 class="blog-category text-info text-uppercase">{{ post.category}}</h6>
+                <h3 class="blog-title"> “ {{post.title}}” </h3>
+                <p class="blog-description text-secondary">{{ post.content}} <a href="#">  Read more</a>
+                </p>
+                <p class="blog-author"><a href="#">Written by: {{post.author}}</a>, {{ post.date_posted }}</p>
             </div>
-            {% endfor %}
         </div>
+        {% endfor %}
+        <!-- blog ends -->
+
+
+        <!-- pagination start -->
+        <div class="row">
+            <div class="col-md-12  d-flex justify-content-center">
+                <nav aria-label="...">
+                    <ul class='pagination justify-content-center'>
+                        {% if posts.has_previous %}
+                        <li class="page-item"><a class="page-link" href='{% url "blog-page" posts.previous_page_number %}'>Previous</a></li>
+                        {% else %}
+                        <li class='page-item'><span class='disabled'>Previous</span></li>
+                        {% endif %} {% for i in posts.paginator.page_range %} {% if posts.number == i %}
+                        <li class='active page-item'><span>{{ i }}</span></li>
+                        {% else %}
+                        <li class="page-item"><a class="page-link" href='{% url "blog-page" i %}'><span>{{ i }}</span></a></li>
+                        {% endif %} {% endfor %} {% if posts.has_next %}
+                        <li class="page-item"><a class="page-link" href='{% url "blog-page" posts.next_page_number %}'>Next</a></li>
+                        {% else %}
+                        <li class="page-item"><span class='disabled'>Next</span></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!-- pagination ends -->
     </div>
-</div>
-<ul class='pagination justify-content-center'>
-    {% if posts.has_previous %}
-      <li class="mx-1"><a href='{% url "blog-page" posts.previous_page_number %}'>Previous</a></li>
-    {% else %}
-      <li class='mx-1 disabled'><span >Previous</span></li>
-    {% endif %}
-  
-    {% for i in posts.paginator.page_range %}
-      {% if posts.number == i %}
-        <li class='active mx-1'><span>{{ i }}</span></li>
-        {% else %}
-        <li class="mx-1"><a href='{% url "blog-page" i %}'>{{ i }}</a></li>
-      {% endif %}
-    {% endfor %}
-    
-    {% if posts.has_next %}
-      <li class="mx-1"><a href='{% url "blog-page" posts.next_page_number %}' >Next</a></li>
-    {% else %}
-      <li class="mx-1"><span class='disabled'>Next</span></li> 
-    {% endif %}
-  </ul>
-  
-{% endblock %}
+    {% endblock %}

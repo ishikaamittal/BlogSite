@@ -8,7 +8,7 @@ from django.core.paginator import Paginator,EmptyPage
 
 # Create your views here.
 def index(request):
-    return render(request, "home_new.html")
+    return render(request, "home.html")
 
 def blog_page(request, page=1):
 
@@ -25,7 +25,7 @@ def blog_page(request, page=1):
     content = {
         'posts' : blog_list,
         }
-    return render(request, "blog_page_new.html",content)
+    return render(request, "blog_page.html",content)
 
 @login_required
 def addPost(request):
@@ -38,7 +38,7 @@ def addPost(request):
         return redirect('blog-home')
     else:
         form = PostForm(request.POST)
-    return render(request,"add_post_new.html", {"form":form})
+    return render(request,"add_post.html", {"form":form})
 
 @login_required
 def updatePost(request, id):
@@ -46,7 +46,7 @@ def updatePost(request, id):
     if method == 'GET':
         post = PostBlog.objects.filter(id=id).values().first()
         data = {'form': PostForm(post)}
-        return render(request, 'addPost.html', data)
+        return render(request, 'add_post.html', data)
     elif method == 'POST':
         post = PostBlog.objects.get(id=id)
         form = PostForm(request.POST, instance=post)
