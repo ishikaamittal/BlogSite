@@ -1,4 +1,4 @@
-{% extends 'Blog/base_new.html' %} {% load static %} {% block body_block %}
+{% extends 'Blog/base.html' %} {% load static %} {% block body_block %}
 
 
 <link rel="stylesheet" type="text/css" href="{% static 'css/add.css' %}">
@@ -22,7 +22,8 @@
                     <button type="submit " class="btn btn-primary ">Login</button> {% csrf_token %}
 
                 </form>
-                Need to create Account? <a class="ml-2" href="{% url 'register' %}">Sign Up</a>
+                Need to create Account? <a class="ml-2" href="{% url 'register' %}">Sign Up</a><br>
+                <a class="ml-2" href="{% url 'password_reset' %}">Forget password?</a>
             </div>
         </div>
     </div>
