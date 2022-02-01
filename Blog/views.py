@@ -8,13 +8,10 @@ from django.core.paginator import Paginator,EmptyPage
 
 # Create your views here.
 def index(request):
-    return render(request, "home.html")
+    return render(request, "home_new.html")
 
 def blog_page(request, page=1):
 
-        # pagination
-
-    # page = request.GET.get('page', 1)
     blog_list = PostBlog.objects.all()
     paginator = Paginator(blog_list, 4)
 
@@ -28,7 +25,7 @@ def blog_page(request, page=1):
     content = {
         'posts' : blog_list,
         }
-    return render(request, "blog_page.html",content)
+    return render(request, "blog_page_new.html",content)
 
 @login_required
 def addPost(request):
@@ -38,10 +35,10 @@ def addPost(request):
         post.author = request.user
         post.save()
         messages.success(request,"New blog created!")
-        return redirect("blog-page")
+        return redirect('blog-home')
     else:
         form = PostForm(request.POST)
-    return render(request,"addPost.html", {"form":form})
+    return render(request,"add_post_new.html", {"form":form})
 
 @login_required
 def updatePost(request, id):

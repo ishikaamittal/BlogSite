@@ -31,7 +31,13 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(template_name='users/Logout.html'), name='logout' ),
     path('addpost/', blog_views.addPost, name="add-post"),
     path('update/<id>', blog_views.updatePost, name="update-post"),
-    path('delete/<id>', blog_views.deletePost, name="delete-post"),
+    path('update/<id>', blog_views.updatePost, name="update-post"),
+    # path('accounts/', include('django.contrib.auth.urls')),
+    # password reset
+    path("password_reset", users_views.password_reset_request, name="password_reset"),
+    path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='users/password/reset_password_done.html'), name='password_reset_done'),
+    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name="users/password/reset_password_confirm.html"), name='password_reset_confirm'),
+    path('reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='users/password/reset_password_complete.html'), name='password_reset_complete'),      
 #    syntax has asterik * for static files
     *static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 ]
