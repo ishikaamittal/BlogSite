@@ -13,14 +13,12 @@ def index(request):
 def blog_page(request, page=1):
 
     blog_list = PostBlog.objects.all()
-    paginator = Paginator(blog_list, 4)
-
+    paginator = Paginator(blog_list, 5)
     try:
         blog_list = paginator.page(page)
     except EmptyPage:
         # if we exceed the page limit we return the last page 
         blog_list = paginator.page(paginator.num_pages)
-            
 
     content = {
         'posts' : blog_list,

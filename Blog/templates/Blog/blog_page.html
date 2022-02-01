@@ -7,7 +7,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{% static 'css/blog-page.css' %}">
-    <title>Horizontal Blog</title>
+    <title>Blog</title>
 </head>
 
 {% block body_block %}
@@ -41,15 +41,16 @@
                 <nav aria-label="...">
                     <ul class='pagination justify-content-center'>
                         {% if posts.has_previous %}
-                        <li class="page-item"><a class="page-link" href='{% url "blog-page" posts.previous_page_number %}'>Previous</a></li>
+                        <li class="page-item"><a class="page-link" href='{% url "blog-page" %}?page={{ posts.previous_page_number }}'>Previous</a></li>
                         {% else %}
                         <li class='page-item'><span class='disabled'>Previous</span></li>
+
                         {% endif %} {% for i in posts.paginator.page_range %} {% if posts.number == i %}
                         <li class='active page-item'><span>{{ i }}</span></li>
                         {% else %}
-                        <li class="page-item"><a class="page-link" href='{% url "blog-page" i %}'><span>{{ i }}</span></a></li>
+                        <li class="page-item"><a class="page-link" href='{% url "blog-page"%}?page={{ i }}'><span>{{ i }}</span></a></li>
                         {% endif %} {% endfor %} {% if posts.has_next %}
-                        <li class="page-item"><a class="page-link" href='{% url "blog-page" posts.next_page_number %}'>Next</a></li>
+                        <li class="page-item"><a class="page-link" href='{% url "blog-page" %}?page={{ posts.next_page_number }}'>Next</a></li>
                         {% else %}
                         <li class="page-item"><span class='disabled'>Next</span></li>
                         {% endif %}

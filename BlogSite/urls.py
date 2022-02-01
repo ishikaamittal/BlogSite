@@ -24,13 +24,12 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', blog_views.index, name='blog-home'),
-    path('blogs/<int:page>', blog_views.blog_page, name='blog-page'),
+    path('blogs/', blog_views.blog_page, name='blog-page'),
     path('register/', users_views.Register, name='register'),
-    path('profile/', users_views.Profile, name='profile'),
+    path('profile/', users_views.profile, name='profile'),
     path('login/', auth_views.LoginView.as_view(template_name='users/Login.html'), name='login' ),
     path('logout/', auth_views.LogoutView.as_view(template_name='users/Logout.html'), name='logout' ),
     path('addpost/', blog_views.addPost, name="add-post"),
-    path('update/<id>', blog_views.updatePost, name="update-post"),
     path('update/<id>', blog_views.updatePost, name="update-post"),
     # path('accounts/', include('django.contrib.auth.urls')),
     # password reset
