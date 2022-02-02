@@ -31,6 +31,7 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(template_name='users/Logout.html'), name='logout' ),
     path('addpost/', blog_views.addPost, name="add-post"),
     path('update/<id>', blog_views.updatePost, name="update-post"),
+    path('delete/<id>', blog_views.deletePost, name="delete-post"),
     # path('accounts/', include('django.contrib.auth.urls')),
     # password reset
     path("password_reset", users_views.password_reset_request, name="password_reset"),

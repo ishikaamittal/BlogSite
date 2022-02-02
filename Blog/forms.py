@@ -11,3 +11,8 @@ class PostForm(forms.ModelForm):
     title= forms.CharField(max_length=100, widget=forms.TextInput(attrs={'placeholder': 'Title', 'class': 'form-control'}))
     content = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Article content', 'class': 'form-control'}))
     category = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'placeholder': 'category', 'class': 'form-control'}))
+
+class updatePostForm(forms.ModelForm):
+    class Meta:
+        model = PostBlog
+        fields = ["title","content","category"]

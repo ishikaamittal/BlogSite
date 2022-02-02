@@ -3,12 +3,14 @@ from .models import PostBlog
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import PostForm
-from django.core.paginator import Paginator,EmptyPage
+from .forms import PostForm, updatePostForm
+from django.core.paginator import Paginator, EmptyPage
+
 
 # Create your views here.
 def index(request):
     return render(request, "home.html")
+
 
 def blog_page(request, page=1):
 
@@ -17,13 +19,14 @@ def blog_page(request, page=1):
     try:
         blog_list = paginator.page(page)
     except EmptyPage:
-        # if we exceed the page limit we return the last page 
+        # if we exceed the page limit we return the last page
         blog_list = paginator.page(paginator.num_pages)
 
     content = {
-        'posts' : blog_list,
-        }
-    return render(request, "blog_page.html",content)
+        'posts': blog_list,
+    }
+    return render(request, "blog_page.html", content)
+
 
 @login_required
 def addPost(request):
@@ -32,31 +35,48 @@ def addPost(request):
         post = form.save(commit=False)
         post.author = request.user
         post.save()
-        messages.success(request,"New blog created!")
+        messages.success(request, "New blog created!")
         return redirect('blog-home')
     else:
         form = PostForm(request.POST)
-    return render(request,"add_post.html", {"form":form})
+    return render(request, "add_post.html", {"form": form})
+
+
+# @login_required
+# def updatePost(request, id):
+#     method = request.method
+#     if method == 'GET':
+#         post = PostBlog.objects.filter(id=id).values().first()
+#         data = {'form': PostForm(post)}
+#         return render(request, 'update_post.html', data)
+#     elif method == 'POST':
+#         post = PostBlog.objects.get(id=id)
+#         form = updatePostForm(request.POST, instance=post)
+#         if form.is_valid():
+#             form.save(commit=True)
+#             messages.success(request,"Blog updated!")
+#             return redirect("blog-page")
+
 
 @login_required
 def updatePost(request, id):
-    method = request.method
-    if method == 'GET':
-        post = PostBlog.objects.filter(id=id).values().first()
-        data = {'form': PostForm(post)}
-        return render(request, 'add_post.html', data)
-    elif method == 'POST':
-        post = PostBlog.objects.get(id=id)
-        form = PostForm(request.POST, instance=post)
-        if form.is_valid():
-            form.save(commit=True)
-            messages.success(request,"Blog updated!")
-            return redirect("blog-page")
+    instance = PostBlog.objects.filter(id=id).first()
+    # if user is the author of the article
+    if request.user == instance.author: 
+        if request.method == 'POST':
+            form = updatePostForm(request.POST, instance=instance)
+            if form.is_valid():
+                form.save()
+                return redirect('blog-page')
+        else:
+            form = updatePostForm(instance=instance)
+    return render(request, 'update_post.html', {'form': form})
+
 
 @login_required
 def deletePost(request, id):
     post = PostBlog.objects.get(id=id)
-    post.delete()
-    messages.success(request,"Blog deleted!")
-    return redirect("blog-page")
-  
+    if request.user == post.author: 
+        post.delete()
+        messages.success(request, "Blog deleted!")
+        return redirect("blog-page")
