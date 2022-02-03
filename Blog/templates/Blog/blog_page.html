@@ -31,18 +31,24 @@
         <div class="col-md-9">
             <h6 class="blog-category text-info text-uppercase">{{ post.category}}</h6>
             <h3 class="blog-title"> “ {{post.title}}” </h3>
-            <p class="blog-description text-secondary">{{ post.content}} <a href="#"> Read more</a>
+            <p class="blog-description text-primary p-2"> {{ post.content|slice:":150"|safe }}
+                <a href="/article/{{ article.id }}"> Read More </a>
             </p>
-            <p class="blog-author"><a href="#">Written by: {{post.author}}</a>, {{ post.date_posted }}</p>
+            <p class="blog-author"><a href="#">Written by: {{ post.author }}</a></p>
+        </div>
+        <div class="pull-right">
+            <p class="blog-author">
+            <p class="blockquote-footer"><i>published on:{{ post.date_posted|date:"d-m-Y" }}</i> </p>
+            {% if post.author == user %}
+            <div>
+                <br>
+                <a href="/update/{{ post.id }}" class="btn btn-primary">Update</a>
+                <a href="/delete/{{ post.id }}" class="btn btn-primary">Delete</a>
+            </div>
+            {% endif %}
         </div>
         <!-- only show update to the self article -->
-        {% if post.author == user %}
-        <div class="pull-right">
-            <br><br>
-            <a href="/update/{{ post.id }}" class="btn btn-primary">Update</a>
-            <a href="/delete/{{ post.id }}" class="btn btn-primary">Delete</a>
-        </div>
-        {% endif %}
+
     </div>
     {% endfor %}
 </div>

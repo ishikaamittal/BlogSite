@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from unicodedata import category
+from django.shortcuts import render,HttpResponse
 from .models import PostBlog
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -36,14 +37,29 @@ def addPost(request):
         post.author = request.user
         post.save()
         messages.success(request, "New blog created!")
-        return redirect('blog-home')
+        return redirect('blog-page')
     else:
         form = PostForm(request.POST)
     return render(request, "add_post.html", {"form": form})
 
+def article(request, id):
+    article = PostBlog.objects.filter(id=id).first()
+    return render(request, "article.html" ,{"article": article})
+
+def category_wise(request, category):
+    articles = PostBlog.objects.filter(category=category.upper())
+    page = request.GET.get('page', 1)
+    paginator = Paginator(articles, 5)
+    try:
+        articles = paginator.page(page)
+    except PageNotAnInteger:
+        articles = paginator.page(1)
+    except EmptyPage:
+        articles = paginator.page(paginator.num_pages)    
+    return render(request, "category_page.html" ,{"articles": articles, "category":category})
 
 @login_required
-def updatePost(request, id):
+def updatePost(request,id):
     instance = PostBlog.objects.filter(id=id).first()
     # if user is the author of the article
     if request.user == instance.author:

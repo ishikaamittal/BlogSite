@@ -23,19 +23,39 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'blog-home' %}">
-                        <h5>Home</h5> <span class="sr-only">(current)</span>
-                    </a>
-                </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <h5>About</h5>
+                    <a class="nav-link" href="{% url 'blog-home' %}">
+                        <b>Home</b>
                     </a>
                 </li>
+
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'blog-page' %}">
-                        <h5>Blogs</h5>
+                        <b>Blogs</b>
                     </a>
+                </li>
+                <li class="nav-item dropdown ">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <b>Category</b>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/category/news">
+                            News
+                        </a>
+                        <a class="dropdown-item" href="/category/android">
+                            Android
+                        </a>
+                        <a class="dropdown-item" href="/category/pc">
+                            PC
+                        </a>
+                        <a class="dropdown-item" href="/category/gaming">
+                            Gaming
+                        </a>
+                        <a class="dropdown-item" href="/category/others">
+                            Others
+                        </a>
+                    </div>
                 </li>
 
                 {% if user.is_authenticated %}
@@ -49,20 +69,22 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{% url 'profile' %}">
-                            <h5>Profile</h5>
+                            Profile
                         </a>
                         <a class="dropdown-item" href="{% url 'logout' %}">
-                            <h5>Log out</h5>
+                            Log out
                         </a>
-                        {% else %}
+                    </div>
+                </li>
+                {% else %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'register' %}">
-                        <h5>Register</h5>
+                        <b>Register</b>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'login' %}">
-                        <h5>Login</h5>
+                        <b>Login</b>
                     </a>
                 </li>
                 {% endif %}
@@ -70,10 +92,10 @@
         </div>
         </ul>
         <!-- search bar -->
-        <form class="form-inline my-2 my-lg-0">
+        <!-- <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+        </form> -->
         </div>
     </nav>
     <!-- navbar ends -->
@@ -88,17 +110,25 @@
     </div>
     <!-- end message -->
 
-<!-- body -->
+    <!-- body -->
     <div>
         {% block body_block %} {% endblock %}
     </div>
-<!-- body ends -->
+    <!-- body ends -->
+
+    <!-- ----------------------------------- -->
+    <!--footer-section-->
+    <!-- <div class="py-4 text-center bg-warning mt-5">
+        <p class="m-0">Copyright by Boocatch.com 2019-2020, all right reserved.</p>
+    </div> -->
+    <!--end footer section-->
+    <!-- ------------------------------------- -->
 
     <!-- footer -->
     <style>
         #footer {
             position: relative, fixed;
-            bottom:0;
+            bottom: 0;
             width: 100%;
         }
     </style>
