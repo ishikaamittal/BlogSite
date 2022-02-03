@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import PostForm, updatePostForm
-from django.core.paginator import Paginator, EmptyPage
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 # Create your views here.
@@ -12,16 +12,16 @@ def index(request):
     return render(request, "home.html")
 
 
-def blog_page(request, page=1):
-
+def blog_page(request):
     blog_list = PostBlog.objects.all()
+    page = request.GET.get('page', 1)
     paginator = Paginator(blog_list, 5)
     try:
         blog_list = paginator.page(page)
+    except PageNotAnInteger:
+        blog_list = paginator.page(1)
     except EmptyPage:
-        # if we exceed the page limit we return the last page
         blog_list = paginator.page(paginator.num_pages)
-
     content = {
         'posts': blog_list,
     }
@@ -42,27 +42,11 @@ def addPost(request):
     return render(request, "add_post.html", {"form": form})
 
 
-# @login_required
-# def updatePost(request, id):
-#     method = request.method
-#     if method == 'GET':
-#         post = PostBlog.objects.filter(id=id).values().first()
-#         data = {'form': PostForm(post)}
-#         return render(request, 'update_post.html', data)
-#     elif method == 'POST':
-#         post = PostBlog.objects.get(id=id)
-#         form = updatePostForm(request.POST, instance=post)
-#         if form.is_valid():
-#             form.save(commit=True)
-#             messages.success(request,"Blog updated!")
-#             return redirect("blog-page")
-
-
 @login_required
 def updatePost(request, id):
     instance = PostBlog.objects.filter(id=id).first()
     # if user is the author of the article
-    if request.user == instance.author: 
+    if request.user == instance.author:
         if request.method == 'POST':
             form = updatePostForm(request.POST, instance=instance)
             if form.is_valid():
@@ -76,7 +60,7 @@ def updatePost(request, id):
 @login_required
 def deletePost(request, id):
     post = PostBlog.objects.get(id=id)
-    if request.user == post.author: 
+    if request.user == post.author:
         post.delete()
         messages.success(request, "Blog deleted!")
         return redirect("blog-page")
