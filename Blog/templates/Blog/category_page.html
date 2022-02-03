@@ -1,0 +1,102 @@
+{% extends 'Blog/base.html' %}
+{% load static %}
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/blog-page.css' %}">
+    <title>Blog</title>
+</head>
+
+{% block body_block %}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col">
+            <h2 class="font-w-700">{{category | capfirst}} </h2>
+        </div>
+        <a href="/addpost/" class="btn btn-danger">New Blog</a>
+    </div>
+
+    <hr>
+    <!-- blog start -->
+    {% for article in articles %}
+    <div class="row blog mb-5 bg-white shadow-sm pb-2 pt-4">
+        <!-- <div class="col-md-4">
+                <img src="img/mountain.jpg" class="blog-img rounded shadow-lg" alt="bootstrap horizontal-blog">
+            </div> -->
+        <div class="col-md-9">
+            <h6 class="blog-category text-info text-uppercase">{{ article.category }}</h6>
+            <h3 class="blog-title"> “ {{article.title}}” </h3>
+            <p class="blog-description text-primary p-2 "> {{ article.content|slice:":200"|safe }}
+                <a href="/article/{{ article.id }}"> Read More </a>
+            </p>
+            <p class="blog-author "><a href="#">Written by: {{ article.author }}</a></p>
+        </div>
+        <div class="pull-right">
+            <p class="blog-author">
+            <p><i>published on:{{ article.date_posted|date:"d-m-Y" }}</i> </p>
+            {% if article.author == user %}
+            <div>
+                <br>
+                <a href="/update/{{ article.id }}" class="btn btn-primary">Update</a>
+                <a href="/delete/{{ article.id }}" class="btn btn-primary">Delete</a>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- only show update to the self article -->
+
+    </div>
+    {% endfor %}
+</div>
+<!-- blog ends -->
+
+<!-- pagination start -->
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        {% if articles.has_other_pages %}
+        <ul class="pagination">
+            {% if articles.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href='/category/{{ category }}?page={{ articles.previous_page_number }}'>previous</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="True">Previous</a>
+            </li>
+            {% endif %}
+
+            {% for i in articles.paginator.page_range %}
+            {% if posts.number == i %}
+            <li class="page-item active" aria-current="page">
+                <span class="page-link">
+                    {{ i }}
+                    <span class="sr-only">(current)</span>
+                </span>
+            </li>
+            {% else %}
+            <li class="page-item"><a class="page-link" href='/category/{{ category }}?page={{ i }}'>{{ i }}</a></li>
+            {% endif %}
+            {% endfor %}
+
+            {% if articles.has_next %}
+            <li class="page-item">
+                <a class="page-link" href='/category/{{ category }}?page={{ articles.next_page_number }}'>next</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="True">Next</a>
+            </li>
+            {% endif %}
+        </ul>
+        {% endif %}
+    </ul>
+</nav>
+
+<!-- pagination ends -->
+{% endblock %}
