@@ -9,11 +9,6 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/carousel-blog.css' %}">
 
-    <!-- {% if title %}
-    <title>Blog Box - {{ title }}</title>
-    {% else %}
-    <title>Blog Box</title>
-    {% endif %} -->
 </head>
 
 <body>
@@ -93,19 +88,19 @@
     </div>
     <!-- end message -->
 
+<!-- body -->
     <div>
         {% block body_block %} {% endblock %}
     </div>
+<!-- body ends -->
 
+    <!-- footer -->
     <style>
         #footer {
-            position: relative;
-            bottom: 0;
+            position: relative-absolute;
             width: 100%;
-            /* Footer height */
         }
     </style>
-    <!-- footer -->
     <div class="footer bg-light" id="footer">
         <div class="container">
             <div class="row">
