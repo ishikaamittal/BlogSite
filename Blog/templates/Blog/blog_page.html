@@ -25,14 +25,11 @@
     <!-- blog start -->
     {% for post in posts %}
     <div class="row blog mb-5 bg-white shadow-sm pb-2 pt-4">
-        <!-- <div class="col-md-4">
-                <img src="img/mountain.jpg" class="blog-img rounded shadow-lg" alt="bootstrap horizontal-blog">
-            </div> -->
         <div class="col-md-9">
             <h6 class="blog-category text-info text-uppercase">{{ post.category}}</h6>
             <h3 class="blog-title"> “ {{post.title}}” </h3>
             <p class="blog-description text-primary p-2"> {{ post.content|slice:":150"|safe }}
-                <a href="/article/{{ article.id }}"> Read More </a>
+                <a href="/article/{{ post.id }}"> Read More </a>
             </p>
             <p class="blog-author"><a href="#">Written by: {{ post.author }}</a></p>
         </div>

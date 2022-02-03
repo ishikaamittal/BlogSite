@@ -1,6 +1,6 @@
 from unicodedata import category
 from django.shortcuts import render,HttpResponse
-from .models import PostBlog
+from .models import Blog
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -14,7 +14,7 @@ def index(request):
 
 
 def blog_page(request):
-    blog_list = PostBlog.objects.all()
+    blog_list = Blog.objects.all()
     page = request.GET.get('page', 1)
     paginator = Paginator(blog_list, 5)
     try:
@@ -31,7 +31,7 @@ def blog_page(request):
 
 @login_required
 def addPost(request):
-    form = PostForm(request.POST)
+    form = PostForm(request.POST,request.FILES)
     if form.is_valid():
         post = form.save(commit=False)
         post.author = request.user
@@ -43,11 +43,11 @@ def addPost(request):
     return render(request, "add_post.html", {"form": form})
 
 def article(request, id):
-    article = PostBlog.objects.filter(id=id).first()
+    article = Blog.objects.filter(id=id).first()
     return render(request, "article.html" ,{"article": article})
 
 def category_wise(request, category):
-    articles = PostBlog.objects.filter(category=category.upper())
+    articles = Blog.objects.filter(category=category.upper())
     page = request.GET.get('page', 1)
     paginator = Paginator(articles, 5)
     try:
@@ -60,11 +60,11 @@ def category_wise(request, category):
 
 @login_required
 def updatePost(request,id):
-    instance = PostBlog.objects.filter(id=id).first()
+    instance = Blog.objects.filter(id=id).first()
     # if user is the author of the article
     if request.user == instance.author:
         if request.method == 'POST':
-            form = updatePostForm(request.POST, instance=instance)
+            form = updatePostForm(request.POST,request.FILES, instance=instance)
             if form.is_valid():
                 form.save()
                 return redirect('blog-page')
@@ -75,7 +75,7 @@ def updatePost(request,id):
 
 @login_required
 def deletePost(request, id):
-    post = PostBlog.objects.get(id=id)
+    post = Blog.objects.get(id=id)
     if request.user == post.author:
         post.delete()
         messages.success(request, "Blog deleted!")

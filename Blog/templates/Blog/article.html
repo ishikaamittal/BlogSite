@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/article.css' %}">
 
 {% block body_block %}
-<div class="container mt-5">
+<div class="container mt-5 mb-5">
     <div class="row main-section">
         <div class="col-sm-12 col-md-9 col-lg-9">
             <div class="card rounded-0 shadow-sm" >
@@ -15,7 +15,7 @@
                     <span class="text-success"> {{ article.date_posted|date:"d-m-Y" }} </span>
                 </div>
                 <div class="card-body">
-                    <!-- <img class="card-img-top" src="img/kajal2.png" alt="bootstrap simple blog"> -->
+                    <img class="embed-responsive " src={{ article.image.url }} width="50%" height="50%">                    
                     <hr>
                     <h2 class="card-title">{{ article.title }}</h2>
                     <p class="card-text">
@@ -64,9 +64,9 @@
 <!-- main content ends -->
 
 <!-- footer -->
-<style>
+<!-- <style>
     #footer {
-        position: absolute;
+        position: relative;
         bottom:0;
         width: 100%;
     }
@@ -82,6 +82,6 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <!-- end footer -->
 {% endblock %}
