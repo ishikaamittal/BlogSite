@@ -34,10 +34,10 @@
                         <b>Blogs</b>
                     </a>
                 </li>
-                <li class="nav-item dropdown ">
+                <li class="nav-item dropdown " style="cursor: pointer">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
-                        <b>Category</b>
+                        <b>Categories</b>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="/category/news">
@@ -70,6 +70,9 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{% url 'profile' %}">
                             Profile
+                        </a>
+                        <a class="dropdown-item" href="{% url 'dashboard' %}">
+                            Dashboard
                         </a>
                         <a class="dropdown-item" href="{% url 'logout' %}">
                             Log out

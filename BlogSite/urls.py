@@ -18,12 +18,15 @@ from django.urls import path,include
 from django.contrib.auth import views as auth_views
 from Blog import views as blog_views
 from users import views as users_views
+from dashboard import views as dash_views
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', blog_views.index, name='blog-home'),
+    # dashboard
+    path('dashboard/', dash_views.dashboard, name='dashboard'),
     # blog
     path('blogs/', blog_views.blog_page, name='blog-page'),
     path('category/<str:category>', blog_views.category_wise, name='category-page'),

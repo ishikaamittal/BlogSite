@@ -16,6 +16,8 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES_DIR_Blog = Path.joinpath(BASE_DIR, 'Blog', 'templates', 'Blog')
 TEMPLATES_DIR_users = Path.joinpath(BASE_DIR, 'users', 'templates', 'users')
+TEMPLATES_DIR_dash = Path.joinpath(BASE_DIR, 'dashboard', 'templates')
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -34,6 +36,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'Blog',
     'users',
+    'dashboard',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -57,7 +60,7 @@ ROOT_URLCONF = 'BlogSite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATES_DIR_Blog, TEMPLATES_DIR_users],
+        'DIRS': [TEMPLATES_DIR_Blog, TEMPLATES_DIR_users,TEMPLATES_DIR_dash],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
