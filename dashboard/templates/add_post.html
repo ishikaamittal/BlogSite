@@ -1,0 +1,63 @@
+{% extends 'base_dash.html' %}
+{% block body_block %}
+
+
+<!-- Blank Start -->
+<div class="container pt-4 px-2 pb-2">
+    <div class="row  justify-content-center mx-0">
+    <h2 class="mb-0">Create your own Article!
+    </h2>
+</div>
+
+<div class="container pt-4 px-2 pb-2">
+    <div class="row vh-100 bg-light rounded justify-content-center mx-0">
+        <div class="col-10">
+            <br>
+            <form method="post" enctype="multipart/form-data">
+                <div class="form-items">
+                    <h5><label>Category</label></h5>
+                    <div>
+                        {{ form.category }}
+                    </div> 
+                </div>
+                <div class="form-items">
+                    <h5><label>Title</label></h5>
+                    <div>
+                        {{ form.title }}
+                    </div> 
+                </div>
+                <div class="form-items">
+                    <h5><label>Content</label></h5> 
+                    <div>
+                        {{ form.content }}
+                    </div>
+                </div>
+                <div class="form-items">
+                    <h5>
+                        <label>Cover</label>
+                    </h5>
+                    <div>
+                        {{ form.image }}
+                    </div>
+                </div>
+                <br>
+                <div class="form-items">
+                    <div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                    {% csrf_token %}
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Blank End -->
+
+{% endblock %}
+
+<!-- <div class="container mt-5">
+    <div class="row blog mb-5 bg-white card rounded-0 shadow-sm pb-2 pt-3">
+        
+    </div>
+</div> -->

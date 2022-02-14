@@ -30,7 +30,7 @@ urlpatterns = [
     # blog
     path('blogs/', blog_views.blog_page, name='blog-page'),
     path('category/<str:category>', blog_views.category_wise, name='category-page'),
-    path('addpost/', blog_views.addPost, name="add-post"),
+    path('addpost/', dash_views.addPost, name="add-post"),
     path('update/<id>', blog_views.updatePost, name="update-post"),
     path('delete/<id>', blog_views.deletePost, name="delete-post"),
     path('article/<id>',blog_views.article, name="article"),

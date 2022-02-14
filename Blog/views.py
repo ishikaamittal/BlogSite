@@ -42,6 +42,7 @@ def addPost(request):
         form = PostForm(request.POST)
     return render(request, "add_post.html", {"form": form})
 
+@login_required
 def article(request, id):
     article = Blog.objects.filter(id=id).first()
     return render(request, "article.html" ,{"article": article})

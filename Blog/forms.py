@@ -16,7 +16,7 @@ class PostForm(forms.ModelForm):
 
    
     title= forms.CharField(max_length=100, widget=forms.TextInput(attrs={'placeholder': 'Title', 'class': 'form-control'}))
-    content = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Article content', 'class': 'form-control'}))
+    content = forms.CharField(widget=forms.Textarea(attrs={'rows':25, 'cols':15, 'placeholder': 'Article content', 'class': 'form-control'}))
     category = forms.ChoiceField(choices=CATEGORY_CHOICES, widget=forms.Select(attrs={'class': 'form-control form-select', 'autocomplete': 'off'}))
     
 class updatePostForm(forms.ModelForm):
