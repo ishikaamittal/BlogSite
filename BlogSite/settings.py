@@ -16,7 +16,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES_DIR_Blog = Path.joinpath(BASE_DIR, 'Blog', 'templates', 'Blog')
 TEMPLATES_DIR_users = Path.joinpath(BASE_DIR, 'users', 'templates', 'users')
-TEMPLATES_DIR_dash = Path.joinpath(BASE_DIR, 'dashboard', 'templates')
+TEMPLATES_DIR_dash = Path.joinpath(BASE_DIR, 'dashboard', 'templates','dashboard')
 
 
 # Quick-start development settings - unsuitable for production

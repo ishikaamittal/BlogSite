@@ -2,6 +2,8 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
+from django.contrib.auth.forms import AuthenticationForm
+
 
 from users.models import Profile
 
@@ -32,6 +34,10 @@ class UserRegisterForm(UserCreationForm):
         model = User
         fields = ['first_name', 'last_name','gender','username', 'email', 'password1', 'password2']
 
+
+class CustomAuthForm(AuthenticationForm):
+    username = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'placeholder': 'Username', 'class': 'form-control','autocomplete':'off'}))
+    password = forms.CharField(max_length=100, widget=forms.PasswordInput(attrs={'placeholder': 'password', 'class': 'form-control' ,'autocomplete':'off'}))
 
 class updateUserForm(forms.ModelForm):
     class Meta:

@@ -45,6 +45,8 @@ def addPost(request):
 @login_required
 def article(request, id):
     article = Blog.objects.filter(id=id).first()
+    article.views = article.views + 1
+    article.save()
     return render(request, "article.html" ,{"article": article})
 
 def category_wise(request, category):

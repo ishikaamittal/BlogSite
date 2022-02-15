@@ -11,6 +11,16 @@
     <title>Blog</title>
 </head>
 
+<!-- css for views -->
+<!-- <style>
+  #copyright {
+    position: absolute;
+    bottom: 0;
+}  
+</style> -->
+
+<!-- end css -->
+
 {% block body_block %}
 
 <div class="container mt-4">
@@ -31,11 +41,13 @@
             <p class="blog-description text-primary p-2"> {{ post.content|slice:":150"|safe }}
                 <a href="/article/{{ post.id }}"> Read More </a>
             </p>
-            <p class="blog-author"><a href="#">Written by: {{ post.author }}</a></p>
+            <p class="blog-author"><a href="#">Written by: {{ post.author }}</a>
+                (<span> {{post.views}} views</span>)
+            </p>
         </div>
         <div class="pull-right">
-            <p class="blog-author">
             <p class="blockquote-footer"><i>published on:{{ post.date_posted|date:"d-m-Y" }}</i> </p>
+            <!-- only show update to the self article -->
             {% if post.author == user %}
             <div>
                 <br>
@@ -44,9 +56,9 @@
             </div>
             {% endif %}
         </div>
-        <!-- only show update to the self article -->
 
     </div>
+
     {% endfor %}
 </div>
 <!-- blog ends -->
