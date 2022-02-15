@@ -47,7 +47,7 @@ def article(request, id):
     article = Blog.objects.filter(id=id).first()
     article.views = article.views + 1
     article.save()
-    return render(request, "article.html" ,{"article": article})
+    return render(request, "article.html" ,{"article": article,'user': request.user})
 
 def category_wise(request, category):
     articles = Blog.objects.filter(category=category.upper())

@@ -24,8 +24,11 @@ class Blog(models.Model):
     image = models.ImageField(upload_to='blog_img')
     title = models.CharField(max_length=100)
     content = models.TextField()
-    date_posted = models.DateTimeField(default=now)
+    date_posted = models.DateTimeField(default= now,)
     views = models.IntegerField(default=0)
+    draft = models.BooleanField(default=False)
+    publish = models.DateField(default= now,)
+    update_time = models.DateTimeField(default= now,)
 
 
     def __str__(self):
@@ -40,5 +43,3 @@ class Blog(models.Model):
             output_size = (300, 300)
             img.thumbnail(output_size)
             img.save(self.image.path)
-
-   
