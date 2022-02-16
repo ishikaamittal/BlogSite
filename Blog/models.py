@@ -13,6 +13,10 @@ CATEGORY_CHOICES = [
         ('GAMING', 'Gaming'),
         ('OTHERS', 'Others'),
     ]
+STATUS_CHOICES = [
+    ('Draft', 'Draft'),
+    ('Published', 'Published')
+]
 
 # Create your models here.
 class Blog(models.Model):
@@ -26,10 +30,7 @@ class Blog(models.Model):
     content = models.TextField()
     date_posted = models.DateTimeField(default= now,)
     views = models.IntegerField(default=0)
-    draft = models.BooleanField(default=False)
-    publish = models.DateField(default= now,)
-    update_time = models.DateTimeField(default= now,)
-
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES)
 
     def __str__(self):
         return self.title

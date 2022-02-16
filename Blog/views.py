@@ -14,7 +14,7 @@ def index(request):
 
 
 def blog_page(request):
-    blog_list = Blog.objects.all()
+    blog_list = Blog.objects.filter(status="Published")
     page = request.GET.get('page', 1)
     paginator = Paginator(blog_list, 5)
     try:
