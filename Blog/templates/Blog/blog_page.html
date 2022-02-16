@@ -39,7 +39,7 @@
             <h6 class="blog-category text-info text-uppercase">{{ post.category}}</h6>
             <h3 class="blog-title"> “ {{post.title}}” </h3>
             <p class="blog-description text-primary p-2"> {{ post.content|slice:":150"|safe }}
-                <a href="/article/{{ post.id }}"> Read More </a>
+                <a href="/article/{{ post.id }}"><span class="text-warning">Read More</span>  </a>
             </p>
             <p class="blog-author"><a href="#">Written by: {{ post.author }}</a>
                 (<span> {{post.views}} views</span>)

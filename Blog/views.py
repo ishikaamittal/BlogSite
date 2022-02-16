@@ -1,5 +1,8 @@
+from multiprocessing.sharedctypes import Value
 from unicodedata import category
 from django.shortcuts import render,HttpResponse
+
+from dashboard import views
 from .models import Blog
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -9,8 +12,9 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 # Create your views here.
-def index(request):
-    return render(request, "home.html")
+def home(request):
+    posts = Blog.objects.order_by('-views')[:4]
+    return render(request, "home.html", {'posts': posts})
 
 
 def blog_page(request):
@@ -82,4 +86,4 @@ def deletePost(request, id):
     if request.user == post.author:
         post.delete()
         messages.success(request, "Blog deleted!")
-        return redirect("blog-page")
+        return redirect("dashboard")
