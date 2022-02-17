@@ -23,7 +23,9 @@
 
 {% block body_block %}
 
-<div class="container mt-4">
+
+<!-- blog start -->
+<div class="container mt-5">
     <div class="row">
         <div class="col">
             <h2 class="font-w-700">Blogs</h2>
@@ -32,36 +34,24 @@
     </div>
 
     <hr>
-    <!-- blog start -->
     {% for post in posts %}
-    <div class="row blog mb-5 bg-white shadow-sm pb-2 pt-4">
-        <div class="col-md-9">
-            <h6 class="blog-category text-info text-uppercase">{{ post.category}}</h6>
-            <h3 class="blog-title"> “ {{post.title}}” </h3>
-            <p class="blog-description text-primary p-2"> {{ post.content|slice:":150"|safe }}
-                <a href="/article/{{ post.id }}"><span class="text-warning">Read More</span>  </a>
-            </p>
-            <p class="blog-author"><a href="#">Written by: {{ post.author }}</a>
-                (<span> {{post.views}} views</span>)
-            </p>
+    <!-- first blog start -->
+    <div class="row blog mb-5 bg-white shadow-sm pb-2 pt-3">
+        <div class="col-md-4">
+            <img src={{ post.image.url }} class="blog-img rounded shadow-lg" width="300" height="200" alt="article">
         </div>
-        <div class="pull-right">
-            <p class="blockquote-footer"><i>published on:{{ post.date_posted|date:"d-m-Y" }}</i> </p>
-            <!-- only show update to the self article -->
-            {% if post.author == user %}
-            <div>
-                <br>
-                <a href="/update/{{ post.id }}" class="btn btn-primary">Update</a>
-                <a href="/delete/{{ post.id }}" class="btn btn-primary">Delete</a>
-            </div>
-            {% endif %}
+        <div class="col-md-8">
+            <h6 class="blog-category text-info text-uppercase">{{ post.category }}</h6>
+            <h3 class="blog-title"> {{post.title}}</h3>
+            <p class="blog-description text-secondary">{{ post.content|slice:":150"|safe }}...<a
+                    href="/article/{{ post.id }}"><span class="text-warning">Read More</span> </a>
+            </p>
+            <p class="blog-author"><a href="#"><b>{{user.first_name | title}} {{user.last_name | title}}</b></a>,
+                {{post.date_posted|date:"d-m-Y" }}</p>
         </div>
-
     </div>
-
-    {% endfor %}
+{% endfor %}
 </div>
-<!-- blog ends -->
 
 
 <!-- pagination start -->

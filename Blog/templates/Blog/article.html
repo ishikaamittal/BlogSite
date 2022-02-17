@@ -10,7 +10,7 @@
             <div class="card rounded-0 shadow-sm" >
                 <div class="card-header">
                     <span>By </span>
-                    <span class="text-success "> {{ article.author }} </span>
+                    <span class="text-success "> {{user.first_name | title}} {{user.last_name | title}} </span>
                     <span> on </span>
                     <span class="text-success"> {{ article.date_posted|date:"d-m-Y" }} </span>
                     <span style="float:right;">
@@ -28,8 +28,8 @@
                     <p >
                         {{ article.content|linebreaks }}
                     </p>
-
                 </div>
+                
                 <div class="card-footer">
                     <div class="row">
                         <div class="col col-sm-10 col-md-10">
