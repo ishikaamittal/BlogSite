@@ -1,13 +1,14 @@
+from email import message
 from multiprocessing.sharedctypes import Value
+from turtle import up
 from unicodedata import category
-from django.shortcuts import render,HttpResponse
-
-from dashboard import views
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render,HttpResponse
 from .models import Blog
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import PostForm, updatePostForm
+from .forms import BlogForm, updateBlogForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
@@ -32,26 +33,14 @@ def blog_page(request):
     }
     return render(request, "blog_page.html", content)
 
-
-@login_required
-def addPost(request):
-    form = PostForm(request.POST,request.FILES)
-    if form.is_valid():
-        post = form.save(commit=False)
-        post.author = request.user
-        post.save()
-        messages.success(request, "New blog created!")
-        return redirect('blog-page')
-    else:
-        form = PostForm(request.POST)
-    return render(request, "add_post.html", {"form": form})
-
 @login_required
 def article(request, id):
     article = Blog.objects.filter(id=id).first()
     article.views = article.views + 1
     article.save()
-    return render(request, "article.html" ,{"article": article,'user': request.user})
+    if article.favorites.filter(id=request.user).exists():
+        fav = True
+    return render(request, "article.html" ,{"article": article,'user': request.user,"fav":fav})
 
 def category_wise(request, category):
     articles = Blog.objects.filter(category=category.upper())
@@ -66,22 +55,22 @@ def category_wise(request, category):
     return render(request, "category_page.html" ,{"articles": articles, "category":category})
 
 @login_required
-def updatePost(request,id):
+def updateBlog(request,id):
     instance = Blog.objects.filter(id=id).first()
     # if user is the author of the article
     if request.user == instance.author:
         if request.method == 'POST':
-            form = updatePostForm(request.POST,request.FILES, instance=instance)
+            form = updateBlogForm(request.POST,request.FILES, instance=instance)
             if form.is_valid():
                 form.save()
                 return redirect('blog-page')
         else:
-            form = updatePostForm(instance=instance)
+            form = updateBlogForm(instance=instance)
     return render(request, 'update_post.html', {'form': form})
 
 
 @login_required
-def deletePost(request, id):
+def deleteBlog(request, id):
     post = Blog.objects.get(id=id)
     if request.user == post.author:
         post.delete()

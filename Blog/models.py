@@ -1,6 +1,5 @@
 from email.policy import default
 from django.utils.timezone import now
-from unicodedata import category
 from django.db import models
 from django.utils import timezone
 from PIL import Image
@@ -31,6 +30,8 @@ class Blog(models.Model):
     date_posted = models.DateTimeField(default= now,)
     views = models.IntegerField(default=0)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES)
+    favorites = models.ManyToManyField("auth.User", related_name='favorite', default=False, blank=True)
+
 
     def __str__(self):
         return self.title

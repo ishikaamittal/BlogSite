@@ -13,48 +13,45 @@
 </head>
 
 {% block body_block %}
-
-<div class="container mt-4">
+<div class="container mt-5">
     <div class="row">
         <div class="col">
-            <h2 class="font-w-700">{{category | capfirst}} </h2>
+            <h2 class="font-w-700">{{category | capfirst}}</h2>
         </div>
         <a href="/addpost/" class="btn btn-danger">New Blog</a>
     </div>
 
     <hr>
-    <!-- blog start -->
     {% for article in articles %}
-    <div class="row blog mb-5 bg-white shadow-sm pb-2 pt-4">
-        <!-- <div class="col-md-4">
-                <img src="img/mountain.jpg" class="blog-img rounded shadow-lg" alt="bootstrap horizontal-blog">
-            </div> -->
-        <div class="col-md-9">
-            <h6 class="blog-category text-info text-uppercase">{{ article.category }}</h6>
-            <h3 class="blog-title"> “ {{article.title}}” </h3>
-            <p class="blog-description text-primary p-2 "> {{ article.content|slice:":200"|safe }}
-                <a href="/article/{{ article.id }}"> Read More </a>
-            </p>
-            <p class="blog-author "><a href="#">Written by: {{ article.author }}</a></p>
+    <!-- first blog start -->
+    <div class="row blog mb-5 bg-white shadow-sm pb-2 pt-3">
+        <div class="col-md-4">
+            <img src={{ article.image.url }} class="blog-img rounded shadow-lg" width="300" height="200" alt="article">
         </div>
-        <div class="pull-right">
-            <p class="blog-author">
-            <p><i>published on:{{ article.date_posted|date:"d-m-Y" }}</i> </p>
-            {% if article.author == user %}
+        <div class="col-md-8">
+            <h6 class="blog-category text-info text-uppercase">{{ article.category }}</h6>
+            <h3 class="blog-title"> {{article.title}}</h3>
+            <p class="blog-description text-secondary">{{ article.content|slice:":150"|safe }}...<a
+                    href="/article/{{ article.id }}"><span class="text-warning">Read More</span> </a>
+            </p>
+            <p class="blog-author"><a href="#"><b>{{ article.author.first_name | title}} {{ article.author.last_name | title}}</b></a>
+                ,{{ article.date_posted|date:"d-m-Y" }}</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<!-- blog ends -->
+
+<!-- {% if article.author == user %}
             <div>
                 <br>
                 <a href="/update/{{ article.id }}" class="btn btn-primary">Update</a>
                 <a href="/delete/{{ article.id }}" class="btn btn-primary">Delete</a>
             </div>
-            {% endif %}
-        </div>
+            {% endif %} -->
 
-        <!-- only show update to the self article -->
 
-    </div>
-    {% endfor %}
-</div>
-<!-- blog ends -->
+
 
 <!-- pagination start -->
 <nav aria-label="Page navigation example">
@@ -63,7 +60,8 @@
         <ul class="pagination">
             {% if articles.has_previous %}
             <li class="page-item">
-                <a class="page-link" href='/category/{{ category }}?page={{ articles.previous_page_number }}'>previous</a>
+                <a class="page-link"
+                    href='/category/{{ category }}?page={{ articles.previous_page_number }}'>previous</a>
             </li>
             {% else %}
             <li class="page-item disabled">

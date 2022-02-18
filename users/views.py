@@ -12,7 +12,6 @@ from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 
-
 # Create your views here.
 def Register(request):
     if request.method == 'POST':
@@ -47,7 +46,6 @@ def profile(request):
         'p_form': profileForm,
     }
     return render(request, 'users/profile.html', context)
-
 
 def password_reset_request(request):
     if request.method == "POST":

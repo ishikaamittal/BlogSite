@@ -27,13 +27,17 @@ urlpatterns = [
     path('', blog_views.home, name='blog-home'),
     # dashboard
     path('dashboard/', dash_views.dashboard, name='dashboard'),
+    path('favorite/<id>',dash_views.favorite_add, name="favorite_add"),
+    path('favorites/',dash_views.favorites, name="favorites"),
     # blog
     path('blogs/', blog_views.blog_page, name='blog-page'),
     path('category/<str:category>', blog_views.category_wise, name='category-page'),
-    path('addpost/', dash_views.addPost, name="add-post"),
-    path('update/<id>', blog_views.updatePost, name="update-post"),
-    path('delete/<id>', blog_views.deletePost, name="delete-post"),
+    path('addpost/', dash_views.addBlog, name="add-post"),
+    path('update/<id>', blog_views.updateBlog, name="update-post"),
+    path('delete/<id>', blog_views.deleteBlog, name="delete-post"),
     path('article/<id>',blog_views.article, name="article"),
+    
+
     # user
     path('register/', users_views.Register, name='register'),
     path('profile/', users_views.profile, name='profile'),

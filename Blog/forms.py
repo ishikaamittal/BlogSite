@@ -15,10 +15,10 @@ STATUS_CHOICES = [
     ('Published', 'Published')
 ]
 
-class PostForm(forms.ModelForm):
+class BlogForm(forms.ModelForm):
     class Meta:
         model = Blog
-        fields = ["title","content","category","image","status"]
+        fields = ["title","content","category","image","status","favorites"]
 
    
     title= forms.CharField(max_length=100, widget=forms.TextInput(attrs={'placeholder': 'Title', 'class': 'form-control'}))
@@ -26,7 +26,7 @@ class PostForm(forms.ModelForm):
     category = forms.ChoiceField(label='Category',choices=CATEGORY_CHOICES, widget=forms.Select(attrs={'class': 'form-control form-select', 'autocomplete': 'off'}))
     status = forms.ChoiceField(label='Status',choices=STATUS_CHOICES, widget=forms.Select(attrs={'class': 'form-control form-select', 'autocomplete': 'off'}))
 
-class updatePostForm(forms.ModelForm):
+class updateBlogForm(forms.ModelForm):
     class Meta:
         model = Blog
         fields = ["title","content","category","image","status"]
@@ -34,3 +34,5 @@ class updatePostForm(forms.ModelForm):
     content = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Article content', 'class': 'form-control'}))
     category = forms.ChoiceField(choices=CATEGORY_CHOICES, widget=forms.Select(attrs={'class': 'form-control form-select', 'autocomplete': 'off'}))
     status = forms.ChoiceField(label='Status',choices=STATUS_CHOICES, widget=forms.Select(attrs={'class': 'form-control form-select', 'autocomplete': 'off'}))
+
+
