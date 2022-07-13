@@ -1,6 +1,6 @@
 from email import message
 from multiprocessing.sharedctypes import Value
-from turtle import up
+# from turtle import up
 from unicodedata import category
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render,HttpResponse
