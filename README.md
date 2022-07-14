@@ -10,5 +10,5 @@ Features User Management, Article Management, Article Views and Reader Comments 
 
 
 
-!(https://user-images.githubusercontent.com/80573726/178932228-d22b7bfc-5a41-4396-9a5d-a624f8bcea2a.mp4)
+![Watch the video](https://user-images.githubusercontent.com/80573726/178932228-d22b7bfc-5a41-4396-9a5d-a624f8bcea2a.mp4)
 
