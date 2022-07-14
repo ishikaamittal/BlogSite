@@ -4,7 +4,7 @@
 
 Features User Management, Article Management, Article Views and Reader Comments and provides a dedicated Author Dashboard.
 
-###### Tech stack used:
+#### Tech stack used:
 - For Back-end : Python, Django
 - For Front-end: HTML5, CSS3, JavaScript and Bootstrap
 
