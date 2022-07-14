@@ -9,7 +9,8 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
+import dj_database_url
+import django_heroku
 from pathlib import Path
 
 
@@ -84,9 +85,9 @@ WSGI_APPLICATION = 'BlogSite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'ciba',
+        }
 }
 import dj_database_url
 db_from_env = dj_database_url.config(conn_max_age=500)
@@ -144,5 +145,5 @@ LOGIN_REDIRECT_URL = 'dashboard'
 LOGIN_URL = 'login'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-import django_heroku
 django_heroku.settings(locals())
+
