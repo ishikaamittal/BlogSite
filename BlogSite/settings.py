@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 # import dj_database_url
-import django_heroku
+# import django_heroku
 from pathlib import Path
 
 
@@ -36,7 +36,7 @@ ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 # Application definition
 
 INSTALLED_APPS = [
-    'whitenoise.runserver_nostatic',
+    # 'whitenoise.runserver_nostatic',
     'Blog',
     'users',
     'dashboard',
@@ -50,7 +50,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -85,13 +85,13 @@ WSGI_APPLICATION = 'BlogSite.wsgi.application'
 
 DATABASES = {
     'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'ciba',
-        }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
-import dj_database_url
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
+# import dj_database_url
+# db_from_env = dj_database_url.config(conn_max_age=500)
+# DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -130,7 +130,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 STATIC_URL = '/static/'
 STATIC_DIR = Path.joinpath(BASE_DIR, 'static')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATICFILES_DIRS = [
     STATIC_DIR,
 ]
@@ -145,5 +145,5 @@ LOGIN_REDIRECT_URL = 'dashboard'
 LOGIN_URL = 'login'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
 
