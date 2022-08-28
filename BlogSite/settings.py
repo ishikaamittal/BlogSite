@@ -28,7 +28,7 @@ TEMPLATES_DIR_dash = Path.joinpath(BASE_DIR, 'dashboard', 'templates','dashboard
 SECRET_KEY = 'django-insecure-x86t&u2tt!a1rjwp%df95xvee-hoyl%$ar(7=dir2_hlmr7s2r'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 
@@ -130,9 +130,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 STATIC_URL = '/static/'
 STATIC_DIR = Path.joinpath(BASE_DIR, 'static')
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATIC_ROOT = None
 STATICFILES_DIRS = [
-    STATIC_DIR,
+    (STATIC_DIR),
 ]
 MEDIA_ROOT = Path.joinpath(BASE_DIR, 'media', 'profile_pic')
 MEDIA_URL = '/media/'
