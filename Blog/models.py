@@ -6,10 +6,11 @@ from PIL import Image
 # from users.models import Profile
 
 CATEGORY_CHOICES = [
-        ('NEWS', 'News'),
-        ('ANDROID', 'Android'),
-        ('PC', 'PC'),
-        ('GAMING', 'Gaming'),
+       ('NEWS', 'News'),
+        ('ENTERTAINMENT', 'Entertainment'),
+        ('TECHNOLOGY', 'Technology'),
+        ('GAMES', 'Games'),
+        ('MARKETING/SALES','Marketing/Sales'),
         ('OTHERS', 'Others'),
     ]
 STATUS_CHOICES = [

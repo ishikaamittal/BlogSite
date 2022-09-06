@@ -38,9 +38,10 @@ def article(request, id):
     article = Blog.objects.filter(id=id).first()
     article.views = article.views + 1
     article.save()
-    if article.favorites.filter(id=request.user).exists():
-        fav = True
-    return render(request, "article.html" ,{"article": article,'user': request.user,"fav":fav})
+    # if article.favorites.filter(id=request.user).exists():
+    #     fav = True
+    # return render(request, "article.html" ,{"article": article,'user': request.user,"fav":fav})
+    return render(request, "article.html" ,{"article": article,'user': request.user})
 
 def category_wise(request, category):
     articles = Blog.objects.filter(category=category.upper())

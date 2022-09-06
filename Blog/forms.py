@@ -4,9 +4,10 @@ from .models import Blog
 
 CATEGORY_CHOICES = [
         ('NEWS', 'News'),
-        ('ANDROID', 'Android'),
-        ('PC', 'PC'),
-        ('GAMING', 'Gaming'),
+        ('ENTERTAINMENT', 'Entertainment'),
+        ('TECHNOLOGY', 'Technology'),
+        ('GAMES', 'Games'),
+        ('MARKETING/SALES','Marketing/Sales'),
         ('OTHERS', 'Others'),
     ]
 
